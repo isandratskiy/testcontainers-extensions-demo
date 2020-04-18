@@ -1,4 +1,4 @@
-package extension.mockserver.singleton;
+package extension.mockserver;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.junit.jupiter.Testcontainers;

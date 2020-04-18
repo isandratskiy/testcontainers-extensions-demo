@@ -1,4 +1,4 @@
-package extension.mockserver.singleton;
+package extension.mockserver;
 
 import container.MockServerContainer;
 import extension.webdriver.resolver.Inject;

@@ -1,4 +1,4 @@
-package extension;
+package extension.compose;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.io.File;
 public class DockerCompose {
 
     @Container
-    private DockerComposeContainer composeContainer = new DockerComposeContainer(
+    private final DockerComposeContainer composeContainer = new DockerComposeContainer<>(
             new File("docker-compose.yaml"))
             .waitingFor("selenium-hub", Wait.defaultWaitStrategy());
 
