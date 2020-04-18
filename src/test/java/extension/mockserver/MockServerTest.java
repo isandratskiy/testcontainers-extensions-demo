@@ -5,7 +5,7 @@ import extension.webdriver.resolver.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;
-import rest.RestClient;
+import rest.client.RestClient;
 import rest.MockProvider;
 import rest.model.request.NoteModel;
 import rest.model.response.PersonModel;
@@ -27,7 +27,7 @@ public class MockServerTest {
     @BeforeEach
     void setup() {
         this.client = new RestClient();
-        this.provider = new MockProvider(mockServer);
+        this.provider = new MockProvider(this.mockServer);
     }
 
     @Test
