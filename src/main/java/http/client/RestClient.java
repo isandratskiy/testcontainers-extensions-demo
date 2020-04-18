@@ -1,4 +1,4 @@
-package rest.client;
+package http.client;
 
 import java.io.IOException;
 import java.net.URI;

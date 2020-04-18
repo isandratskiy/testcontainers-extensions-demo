@@ -1,19 +1,18 @@
 package extension.mockserver;
 
-import container.MockServerContainer;
+import http.container.MockServerContainer;
 import extension.webdriver.resolver.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Container;
-import rest.client.RestClient;
-import rest.MockProvider;
-import rest.model.request.NoteModel;
-import rest.model.response.PersonModel;
+import http.client.RestClient;
+import http.MockProvider;
+import http.model.request.NoteModel;
+import http.model.response.PersonModel;
 
-import java.util.Arrays;
-
+import static java.util.Arrays.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static rest.JavaObjectMapper.*;
+import static http.JavaObjectMapper.*;
 
 @SetupMockserverContainer
 public class MockServerTest {
@@ -37,7 +36,7 @@ public class MockServerTest {
                 new PersonModel()
                         .setName("Peter")
                         .setAge(38)
-                        .setPosition(Arrays.asList("Founder", "CTO", "Writer"))
+                        .setPosition(asList("Founder", "CTO", "Writer"))
         );
 
         var mockInstance = provider.createPersonExpectation(path, mockResponse) + "?name=peter";
@@ -49,14 +48,14 @@ public class MockServerTest {
     @Test
     void shouldValidatePersonNote() throws Exception {
         var path = "/validate";
-        var request = serialize(
+        var mockRequest = serialize(
                 new NoteModel()
                         .setName("Peter")
                         .setNotes("valid")
         );
 
-        var mockInstance = provider.createPersonNoteExpectation(path, request);
-        var response = client.post(mockInstance, request);
+        var mockInstance = provider.createPersonNoteExpectation(path, mockRequest);
+        var response = client.post(mockInstance, mockRequest);
         assertEquals(
                 200, response.statusCode(), "Expectation returns expected response body");
     }

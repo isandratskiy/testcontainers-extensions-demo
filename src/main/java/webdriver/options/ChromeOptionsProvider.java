@@ -1,4 +1,4 @@
-package driver.options;
+package webdriver.options;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 

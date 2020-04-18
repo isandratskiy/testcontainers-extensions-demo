@@ -1,4 +1,4 @@
-package container;
+package http.container;
 
 import org.testcontainers.containers.GenericContainer;
 

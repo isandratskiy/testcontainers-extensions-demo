@@ -1,8 +1,8 @@
-package driver.options;
+package webdriver.options;
 
 import org.openqa.selenium.MutableCapabilities;
 
-import static driver.options.CapabilitiesFactory.BrowserOption.*;
+import static webdriver.options.CapabilitiesFactory.BrowserOption.*;
 import static java.lang.System.getProperty;
 
 public class CapabilitiesFactory {

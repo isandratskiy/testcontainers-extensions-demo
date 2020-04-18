@@ -10,7 +10,7 @@ import org.testcontainers.lifecycle.TestDescription;
 
 import java.io.File;
 
-import static driver.options.CapabilitiesFactory.getDriverCapabilities;
+import static webdriver.options.CapabilitiesFactory.getDriverCapabilities;
 import static java.time.Duration.ofMinutes;
 import static org.apache.commons.io.FileUtils.ONE_MB;
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;

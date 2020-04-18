@@ -1,4 +1,4 @@
-package driver;
+package webdriver;
 
 import lombok.SneakyThrows;
 
@@ -6,7 +6,7 @@ import java.net.URL;
 
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static driver.WebDriverFactory.Browser.*;
+import static webdriver.WebDriverFactory.Browser.*;
 import static java.lang.System.getProperty;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 

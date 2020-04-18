@@ -1,6 +1,6 @@
-package rest;
+package http;
 
-import container.MockServerContainer;
+import http.container.MockServerContainer;
 import org.mockserver.client.MockServerClient;
 
 import static org.mockserver.model.HttpRequest.request;

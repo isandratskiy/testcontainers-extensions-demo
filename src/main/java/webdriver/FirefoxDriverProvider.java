@@ -1,11 +1,11 @@
-package driver;
+package webdriver;
 
 import com.codeborne.selenide.WebDriverProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import static driver.options.FirefoxOptionsProvider.getOptions;
+import static webdriver.options.FirefoxOptionsProvider.getOptions;
 import static io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver;
 
 public class FirefoxDriverProvider implements WebDriverProvider {

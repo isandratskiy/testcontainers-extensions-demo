@@ -8,7 +8,7 @@ import org.testcontainers.lifecycle.TestDescription;
 import java.io.File;
 
 import static com.codeborne.selenide.WebDriverRunner.*;
-import static driver.options.CapabilitiesFactory.getDriverCapabilities;
+import static webdriver.options.CapabilitiesFactory.getDriverCapabilities;
 import static java.lang.System.out;
 import static java.time.Duration.ofMinutes;
 import static org.apache.commons.io.FileUtils.ONE_MB;

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.junit.jupiter.Container;
 
-import static driver.options.CapabilitiesFactory.*;
+import static webdriver.options.CapabilitiesFactory.*;
 import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 

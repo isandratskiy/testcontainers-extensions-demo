@@ -1,6 +1,6 @@
 package extension.mockserver;
 
-import container.MockServerContainer;
+import http.container.MockServerContainer;
 import extension.webdriver.resolver.Inject;
 import org.junit.jupiter.api.extension.*;
 import org.testcontainers.junit.jupiter.Container;
