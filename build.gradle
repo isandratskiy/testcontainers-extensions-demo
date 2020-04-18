@@ -1,0 +1,49 @@
+plugins {
+    id "java"
+    id "io.freefair.lombok" version "4.1.6"
+}
+
+group "test.conteiners.demo"
+version "0.0.5"
+
+sourceCompatibility = 11
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+ext {
+    JUNIT_VERSION = "5.6.1"
+    TESTCONTAINERS_VERSION = "1.13.0"
+    SELENIDE_VERSION = "5.10.0"
+    MOCKSERVER_VERSION = "5.10.0"
+    JACKSON_VERSION = "2.10.3"
+}
+
+dependencies {
+    //testRuntimeOnly group:"org.slf4j", name: "slf4j-simple", version: "1.7.30"
+    testCompile group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "$JUNIT_VERSION"
+    testCompile group: "org.junit.jupiter", name: "junit-jupiter-params", version: "$JUNIT_VERSION"
+    compile group: "org.testcontainers", name: "testcontainers", version: "$TESTCONTAINERS_VERSION"
+    compile group: "org.testcontainers", name: "junit-jupiter", version: "$TESTCONTAINERS_VERSION"
+    compile group: "org.testcontainers", name: "selenium", version: "$TESTCONTAINERS_VERSION"
+    compile group: "com.codeborne", name: "selenide", version: "$SELENIDE_VERSION"
+    compile group: "org.mock-server", name: "mockserver-client-java", version: "$MOCKSERVER_VERSION"
+    compile group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "$JACKSON_VERSION"
+}
+
+tasks.withType(Wrapper) {
+    gradleVersion = 6.3
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        showStandardStreams = true
+        events "passed", "failed"
+        exceptionFormat = "full"
+        displayGranularity = 4
+    }
+}
