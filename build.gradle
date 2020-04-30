@@ -26,7 +26,7 @@ ext {
 }
 
 dependencies {
-    testRuntimeOnly group:"org.slf4j", name: "slf4j-simple", version: "$SLF4J_VERSION"
+    //testRuntimeOnly group:"org.slf4j", name: "slf4j-simple", version: "$SLF4J_VERSION"
     testCompile group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "$JUNIT_VERSION"
     testCompile group: "org.junit.jupiter", name: "junit-jupiter-params", version: "$JUNIT_VERSION"
     compile group: "org.testcontainers", name: "testcontainers", version: "$TESTCONTAINERS_VERSION"
