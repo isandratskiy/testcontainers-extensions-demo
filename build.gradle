@@ -1,6 +1,8 @@
 plugins {
     id "java"
     id "io.freefair.lombok" version "4.1.6"
+    id "org.gradle.test-retry" version "1.1.5"
+    id "com.adarshr.test-logger" version "1.7.1"
 }
 
 group "test.conteiners.demo"
@@ -26,7 +28,7 @@ ext {
 }
 
 dependencies {
-    //testRuntimeOnly group:"org.slf4j", name: "slf4j-simple", version: "$SLF4J_VERSION"
+    testRuntimeOnly group:"org.slf4j", name: "slf4j-simple", version: "$SLF4J_VERSION"
     testCompile group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "$JUNIT_VERSION"
     testCompile group: "org.junit.jupiter", name: "junit-jupiter-params", version: "$JUNIT_VERSION"
     compile group: "org.testcontainers", name: "testcontainers", version: "$TESTCONTAINERS_VERSION"
@@ -47,10 +49,27 @@ tasks.withType(Wrapper) {
 tasks.withType(Test) {
     useJUnitPlatform()
 
-    testLogging {
-        showStandardStreams = true
-        events "passed", "failed"
-        exceptionFormat = "full"
-        displayGranularity = 4
+    testlogger {
+        theme "mocha"
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped false
+        showFailed true
+        showStandardStreams false
+        showPassedStandardStreams false
+        showSkippedStandardStreams false
+        showFailedStandardStreams true
+    }
+
+    retry {
+        maxRetries = 1
+        maxFailures = 10
+        failOnPassedAfterRetry = false
     }
 }
