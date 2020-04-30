@@ -3,7 +3,10 @@ package http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JavaObjectMapper {
+public final class JavaObjectMapper {
+    private JavaObjectMapper() {
+    }
+
     public static String serialize(Object object) throws JsonProcessingException {
         return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }

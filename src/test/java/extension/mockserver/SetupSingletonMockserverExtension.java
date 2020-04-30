@@ -12,7 +12,7 @@ public class SetupSingletonMockserverExtension implements BeforeAllCallback, Aft
     private static final String CONTAINER_KEY = "mockserver.container";
 
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext context) {
         var mockserver = new MockServerContainer();
         context.getStore(GLOBAL).put(CONTAINER_KEY, mockserver);
     }
@@ -30,7 +30,7 @@ public class SetupSingletonMockserverExtension implements BeforeAllCallback, Aft
     }
 
     @Override
-    public void afterAll(ExtensionContext context) throws Exception {
+    public void afterAll(ExtensionContext context) {
         context.getStore(GLOBAL).remove(CONTAINER_KEY);
     }
 }

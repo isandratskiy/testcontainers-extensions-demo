@@ -5,8 +5,11 @@ import org.openqa.selenium.MutableCapabilities;
 import static webdriver.options.CapabilitiesFactory.BrowserOption.*;
 import static java.lang.System.getProperty;
 
-public class CapabilitiesFactory {
+public final class CapabilitiesFactory {
     private static final String BROWSER_PROPERTY = "browser.container";
+
+    private CapabilitiesFactory() {
+    }
 
     public static MutableCapabilities getDriverCapabilities() {
         switch (getBrowserProperty()) {

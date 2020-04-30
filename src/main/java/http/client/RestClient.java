@@ -1,11 +1,13 @@
 package http.client;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.http.*;
 
+import static java.net.URI.*;
 import static java.net.http.HttpClient.*;
 import static java.net.http.HttpClient.Version.*;
+import static java.net.http.HttpRequest.BodyPublishers.*;
+import static java.net.http.HttpResponse.BodyHandlers.*;
 
 public class RestClient {
     private final HttpClient httpClient = newBuilder()
@@ -14,25 +16,25 @@ public class RestClient {
 
     public HttpResponse<String> post(String uri, String body) throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .uri(URI.create(uri))
+                .POST(ofString(body))
+                .uri(create(uri))
                 .header("Content-Type", "application/json")
                 .build();
 
         return httpClient.send(
-                request, HttpResponse.BodyHandlers.ofString()
+                request, ofString()
         );
     }
 
     public HttpResponse<String> get(String uri) throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(uri))
+                .uri(create(uri))
                 .header("Content-Type", "application/json")
                 .build();
 
         return httpClient.send(
-                request, HttpResponse.BodyHandlers.ofString()
+                request, ofString()
         );
     }
 }

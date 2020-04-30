@@ -2,18 +2,21 @@ package webdriver;
 
 import com.codeborne.selenide.WebDriverProvider;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.URL;
 
 import static webdriver.options.ChromeOptionsProvider.getOptions;
-import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
-public class ChromeDriverProvider implements WebDriverProvider {
-    private static String instance;
+public class ChromeDriverProvider {
 
-    @Override
-    public WebDriver createDriver(DesiredCapabilities desiredCapabilities) {
-        chromedriver().setup();
-        return new ChromeDriver(getOptions());
+    static class Remote implements WebDriverProvider {
+        private static URL instance;
+
+        @Override
+        public WebDriver createDriver(DesiredCapabilities desiredCapabilities) {
+            return new RemoteWebDriver(instance, getOptions());
+        }
     }
 }
