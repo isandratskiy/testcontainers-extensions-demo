@@ -1,9 +1,8 @@
 package extension.webdriver.singleton;
 
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import extension.webdriver.resolver.Inject;
+import org.junit.jupiter.api.extension.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.DefaultRecordingFileFactory;
 import org.testcontainers.lifecycle.TestDescription;
@@ -16,7 +15,7 @@ import static org.apache.commons.io.FileUtils.ONE_MB;
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
 
-public class SetupSingletonContainerExtension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback {
+public class SetupSingletonContainerExtension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
     private static final String CONTAINER_KEY = "single.testcontainer";
     private static BrowserWebDriverContainer container;
 
@@ -55,5 +54,18 @@ public class SetupSingletonContainerExtension implements BeforeAllCallback, Afte
     public void afterAll(ExtensionContext context) {
         container.stop();
         context.getStore(GLOBAL).remove(CONTAINER_KEY);
+    }
+
+    @Override
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        return parameterContext.getParameter().getType().equals(RemoteWebDriver.class);
+    }
+
+    @Override
+    public RemoteWebDriver resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        var container = extensionContext.getStore(GLOBAL).get(CONTAINER_KEY, BrowserWebDriverContainer.class);
+        if (parameterContext.isAnnotated(Inject.class))
+            return container.getWebDriver();
+        else throw new ParameterResolutionException("Not found injectable Container.class field");
     }
 }

@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Testcontainers
-@ExtendWith({SetupSingletonContainerExtension.class, WebDriverContainerParameterResolver.class})
+@ExtendWith({SetupSingletonContainerExtension.class})
 public @interface SetupSingletonContainer {
 }
