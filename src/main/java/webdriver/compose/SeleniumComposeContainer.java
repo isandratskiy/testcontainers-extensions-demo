@@ -35,12 +35,4 @@ public class SeleniumComposeContainer extends DockerComposeContainer<SeleniumCom
     public void isHubRunning() {
         await().until(() -> client.warmingUp(SERVICE_NAME, ofSeconds(5)));
     }
-
-    public void isChromeRunning() {
-        await().until(() -> client.warmingUp(CHROME_NAME, ofSeconds(5)));
-    }
-
-    public void isFirefoxRunning() {
-        await().until(() -> client.warmingUp(FIREFOX_NAME, ofSeconds(5)));
-    }
 }

@@ -5,7 +5,10 @@ import lombok.SneakyThrows;
 import java.net.URL;
 
 import static com.codeborne.selenide.Configuration.*;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static java.util.concurrent.TimeUnit.*;
+import static org.rnorth.ducttape.unreliables.Unreliables.*;
 import static webdriver.WebDriverFactory.Browser.*;
 import static java.lang.System.getProperty;
 
@@ -31,6 +34,15 @@ public final class WebDriverFactory {
 
     public static void shutdownDriverInstance() {
         getWebDriver().quit();
+    }
+
+    public static void checkInstanceState(String instance) {
+        var fakedriver = retryUntilSuccess(60, SECONDS, () -> {
+            createDriverInstance(instance);
+            open();
+            return getWebDriver();
+        });
+        fakedriver.quit();
     }
 
     enum Browser {

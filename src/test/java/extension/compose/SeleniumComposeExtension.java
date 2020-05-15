@@ -9,21 +9,20 @@ import static webdriver.WebDriverFactory.*;
 public class SeleniumComposeExtension implements BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback {
     private static final String ENVIRONMENT_KEY = "compose.key";
 
-    private static SeleniumComposeContainer environment;
+    private static final SeleniumComposeContainer ENVIRONMENT = new SeleniumComposeContainer();
+    private static String environmentInstance;
 
     @Override
     public void beforeAll(ExtensionContext context) {
-        environment = new SeleniumComposeContainer();
-        environment.start();
-        environment.isChromeRunning();
-
+        ENVIRONMENT.start();
+        environmentInstance = ENVIRONMENT.getInstanceUrl();
         baseUrl = "https://the-internet.herokuapp.com";
+        checkInstanceState(environmentInstance);
     }
 
     @Override
     public void beforeEach(ExtensionContext context) {
-        var instance = environment.getInstanceUrl();
-        createDriverInstance(instance);
+        createDriverInstance(environmentInstance);
     }
 
     @Override
@@ -33,6 +32,6 @@ public class SeleniumComposeExtension implements BeforeAllCallback, AfterAllCall
 
     @Override
     public void afterAll(ExtensionContext context) {
-        environment.stop();
+        ENVIRONMENT.stop();
     }
 }
