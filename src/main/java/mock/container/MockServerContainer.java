@@ -1,4 +1,4 @@
-package http.container;
+package mock.container;
 
 import org.testcontainers.containers.GenericContainer;
 
@@ -16,11 +16,11 @@ public class MockServerContainer extends GenericContainer<MockServerContainer> {
 
     public MockServerContainer(String version) {
         super(CONTAINER_NAME + version);
-        withExposedPorts(PORT);
+        super.withExposedPorts(PORT);
     }
 
     public String getHost() {
-        return format("http://%s:%d", getContainerIpAddress(), getMappedPort(PORT));
+        return format("http://%s:%d", super.getContainerIpAddress(), this.getPort());
     }
 
     public Integer getPort() {

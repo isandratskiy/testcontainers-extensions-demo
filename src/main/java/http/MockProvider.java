@@ -1,6 +1,6 @@
 package http;
 
-import http.container.MockServerContainer;
+import mock.container.MockServerContainer;
 import org.mockserver.client.MockServerClient;
 
 import static org.mockserver.model.HttpRequest.request;
@@ -24,8 +24,7 @@ public class MockProvider {
                         response()
                                 .withStatusCode(200)
                                 .withHeader("Content-Type", "application/json")
-                                .withBody(mockResponse)
-                );
+                                .withBody(mockResponse));
 
         return mockServer.getHost() + path;
     }
@@ -43,8 +42,7 @@ public class MockProvider {
                 .respond(
                         response()
                                 .withStatusCode(200)
-                                .withBody("some_response_body")
-                );
+                                .withBody("some_response_body"));
     }
 
     public String createPersonNoteExpectation(String path, String mockRequest) {
@@ -60,8 +58,7 @@ public class MockProvider {
                         response()
                                 .withStatusCode(200)
                                 .withHeader("Content-Type", "application/json")
-                                .withBody("{ \"note\": \"valid\" }")
-                );
+                                .withBody("{ \"note\": \"valid\" }"));
 
         return mockServer.getHost() + path;
     }

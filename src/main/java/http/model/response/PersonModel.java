@@ -2,6 +2,8 @@ package http.model.response;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 
 public class PersonModel{
 	@JsonProperty("name")
@@ -39,4 +41,11 @@ public class PersonModel{
 		this.age = age;
 		return this;
 	}
+
+	@SneakyThrows
+	@Override
+	public String toString() {
+		return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+	}
+
 }

@@ -1,6 +1,7 @@
 package docker.client;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.PullImageResultCallback;
 import com.github.dockerjava.api.exception.NotFoundException;
 import com.github.dockerjava.api.model.Container;
 import lombok.SneakyThrows;
@@ -11,9 +12,9 @@ import java.util.List;
 import static com.github.dockerjava.core.DockerClientBuilder.*;
 import static java.lang.String.*;
 import static java.util.Arrays.*;
+import static java.util.concurrent.TimeUnit.*;
 
 public class DockerCLI {
-
     private final DockerClient client;
 
     public DockerCLI() {
@@ -31,6 +32,15 @@ public class DockerCLI {
                 .filter(container -> container.getNames()[0].contains(name))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Not found container by name: " + name));
+    }
+
+    //new DockerCLI().pull("selenoid/vnc", "chrome_83.0");
+    @SneakyThrows
+    public void pull(String image, String tag) {
+        this.client.pullImageCmd(image)
+                .withTag(tag)
+                .exec(new PullImageResultCallback())
+                .awaitCompletion(120, SECONDS);
     }
 
     public boolean isRunning(String name) {

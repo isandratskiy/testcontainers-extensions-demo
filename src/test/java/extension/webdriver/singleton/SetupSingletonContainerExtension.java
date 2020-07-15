@@ -20,6 +20,19 @@ public class SetupSingletonContainerExtension implements BeforeAllCallback, Afte
     private static BrowserWebDriverContainer container;
 
     @Override
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        return parameterContext.getParameter().getType().equals(RemoteWebDriver.class);
+    }
+
+    @Override
+    public RemoteWebDriver resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+        var container = extensionContext.getStore(GLOBAL).get(CONTAINER_KEY, BrowserWebDriverContainer.class);
+        if (parameterContext.isAnnotated(Inject.class))
+            return container.getWebDriver();
+        else throw new ParameterResolutionException("Not found injectable Container.class field");
+    }
+
+    @Override
     public void beforeAll(ExtensionContext context) {
         container = new BrowserWebDriverContainer<>();
         container.withCapabilities(getDriverCapabilities());
@@ -54,18 +67,5 @@ public class SetupSingletonContainerExtension implements BeforeAllCallback, Afte
     public void afterAll(ExtensionContext context) {
         container.stop();
         context.getStore(GLOBAL).remove(CONTAINER_KEY);
-    }
-
-    @Override
-    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType().equals(RemoteWebDriver.class);
-    }
-
-    @Override
-    public RemoteWebDriver resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        var container = extensionContext.getStore(GLOBAL).get(CONTAINER_KEY, BrowserWebDriverContainer.class);
-        if (parameterContext.isAnnotated(Inject.class))
-            return container.getWebDriver();
-        else throw new ParameterResolutionException("Not found injectable Container.class field");
     }
 }

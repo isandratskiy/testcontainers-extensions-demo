@@ -1,8 +1,7 @@
 package webdriver.options;
 
-import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.Capabilities;
 
-import static webdriver.options.CapabilitiesFactory.BrowserOption.*;
 import static java.lang.System.getProperty;
 
 public final class CapabilitiesFactory {
@@ -11,15 +10,13 @@ public final class CapabilitiesFactory {
     private CapabilitiesFactory() {
     }
 
-    public static MutableCapabilities getDriverCapabilities() {
+    public static Capabilities getDriverCapabilities() {
         switch (getBrowserProperty()) {
             case "chrome":
-                return CHROME.get();
+                return Option.CHROME.get();
             case "firefox":
-                return FIREFOX.get();
-            default: throw new IllegalStateException(
-                    "Incorrect browser type: " + getBrowserProperty()
-            );
+                return Option.FIREFOX.get();
+            default: throw new IllegalStateException("Incorrect browser type: " + getBrowserProperty());
         }
     }
 
@@ -27,20 +24,20 @@ public final class CapabilitiesFactory {
         return getProperty(BROWSER_PROPERTY, "chrome");
     }
 
-    enum BrowserOption {
+    enum Option {
         CHROME {
             @Override
-            MutableCapabilities get() {
+            Capabilities get() {
                 return ChromeOptionsProvider.getOptions();
             }
         },
         FIREFOX {
             @Override
-            MutableCapabilities get() {
+            Capabilities get() {
                 return FirefoxOptionsProvider.getOptions();
             }
         };
 
-        abstract MutableCapabilities get();
+        abstract Capabilities get();
     }
 }

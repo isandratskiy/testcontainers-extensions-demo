@@ -1,6 +1,6 @@
 package extension.mockserver;
 
-import http.container.MockServerContainer;
+import mock.container.MockServerContainer;
 import extension.webdriver.resolver.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,8 +36,7 @@ public class MockServerTest {
                 new PersonModel()
                         .setName("Peter")
                         .setAge(38)
-                        .setPosition(asList("Founder", "CTO", "Writer"))
-        );
+                        .setPosition(asList("Founder", "CTO", "Writer")));
 
         var mockInstance = provider.createPersonExpectation(path, mockResponse) + "?name=peter";
         var response = responseAs(client.get(mockInstance).body(), PersonModel.class);
@@ -51,8 +50,7 @@ public class MockServerTest {
         var mockRequest = serialize(
                 new NoteModel()
                         .setName("Peter")
-                        .setNotes("valid")
-        );
+                        .setNotes("valid"));
 
         var mockInstance = provider.createPersonNoteExpectation(path, mockRequest);
         var response = client.post(mockInstance, mockRequest);

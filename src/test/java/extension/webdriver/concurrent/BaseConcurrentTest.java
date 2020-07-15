@@ -4,12 +4,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.AuthenticationType.BASIC;
-import static com.codeborne.selenide.Condition.matchText;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.element;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.By.tagName;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
@@ -23,22 +20,20 @@ public class BaseConcurrentTest {
 
     @Test
     void canEditIFrameText() {
+        var inputText = randomAlphabetic(200);
         open("/");
         $$(".columns ul > li a").find(matchText("WYSIWYG")).scrollTo().click();
         switchTo().frame("mce_0_ifr");
         var editor = $(".mce-content-body");
         editor.clear();
-        var text = randomAlphabetic(200);
-        editor.val(text);
-        assertEquals(text, editor.text());
+        editor.val(inputText);
+        editor.shouldHave(exactText(inputText));
     }
 
     @Test
     void canPassBasicAuth() {
         open("/basic_auth", BASIC, "admin", "admin");
-        var actualText = element(tagName("p")).text();
-        var expectedText = "Congratulations! You must have the proper credentials.";
-        assertEquals(expectedText, actualText);
+        $(tagName("p")).shouldHave(exactText("Congratulations! You must have the proper credentials."));
     }
 
     @Test
@@ -46,7 +41,7 @@ public class BaseConcurrentTest {
         open("/forgot_password");
         $("#email").val(randomAlphabetic(5) + "@icloude.com");
         $("#form_submit").click();
-        assertEquals("Your e-mail's been sent!", $("#content").text().trim());
+        $("#content").shouldHave(exactText("Your e-mail's been sent!"));
     }
 
     @Test
@@ -55,7 +50,6 @@ public class BaseConcurrentTest {
         $("#username").val("tomsmith");
         $("#password").val("SuperSecretPassword!");
         $(".radius").click();
-        $(".flash success");
-        assertTrue(element(".flash").text().contains("You logged into a secure area"));
+        $(".flash").shouldHave(matchesText("You logged into a secure area!"));
     }
 }

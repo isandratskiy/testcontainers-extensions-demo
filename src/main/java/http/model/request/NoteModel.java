@@ -1,6 +1,8 @@
 package http.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 
 public class NoteModel {
 	@JsonProperty("notes")
@@ -17,5 +19,11 @@ public class NoteModel {
 	public NoteModel setName(String name){
 		this.name = name;
 		return this;
+	}
+
+	@SneakyThrows
+	@Override
+	public String toString() {
+		return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
 	}
 }
