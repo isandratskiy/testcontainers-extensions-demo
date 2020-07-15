@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "io.freefair.lombok" version "4.1.6"
-    id "org.gradle.test-retry" version "1.1.5"
+    id "org.gradle.test-retry" version "1.1.6"
     id "com.adarshr.test-logger" version "1.7.1"
 }
 
@@ -72,7 +72,7 @@ tasks.withType(Test) {
 
     retry {
         maxRetries = 1
-        maxFailures = 10
+        maxFailures = 3
         failOnPassedAfterRetry = false
     }
 }
