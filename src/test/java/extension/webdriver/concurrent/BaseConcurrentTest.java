@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.AuthenticationType.BASIC;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Configuration.*;
+import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static org.openqa.selenium.By.tagName;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
@@ -51,5 +51,20 @@ public class BaseConcurrentTest {
         $("#password").val("SuperSecretPassword!");
         $(".radius").click();
         $(".flash").shouldHave(matchesText("You logged into a secure area!"));
+    }
+
+    @Test
+    void canAddNewElement() {
+        open("/add_remove_elements/");
+        $("[onclick*='addElement']").click();
+        $(".added-manually").shouldBe(visible);
+    }
+
+    @Test
+    void canRemoveAddedElement() {
+        open("/add_remove_elements/");
+        $("[onclick*='addElement']").click();
+        $(".added-manually").click();
+        $(".added-manually").shouldBe(disappear);
     }
 }

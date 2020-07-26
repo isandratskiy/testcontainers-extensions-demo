@@ -1,4 +1,4 @@
-package extension.webdriver.resolver;
+package extension.webdriver.injector;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

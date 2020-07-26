@@ -2,7 +2,7 @@ package mock.container;
 
 import org.testcontainers.containers.GenericContainer;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 public class MockServerContainer extends GenericContainer<MockServerContainer> {
     public static final String VERSION = "5.10.0";
@@ -23,7 +23,7 @@ public class MockServerContainer extends GenericContainer<MockServerContainer> {
         return format("http://%s:%d", super.getContainerIpAddress(), this.getPort());
     }
 
-    public Integer getPort() {
+    public int getPort() {
         return getMappedPort(PORT);
     }
 }

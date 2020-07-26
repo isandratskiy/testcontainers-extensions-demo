@@ -24,7 +24,7 @@ public final class CapabilitiesFactory {
         return getProperty(BROWSER_PROPERTY, "chrome");
     }
 
-    enum Option {
+    private enum Option {
         CHROME {
             @Override
             Capabilities get() {

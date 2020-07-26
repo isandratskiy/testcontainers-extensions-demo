@@ -1,10 +1,17 @@
 package http.model.response;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 
+import java.util.List;
+
+@Getter
+@Setter
+@Accessors(fluent = true)
 public class PersonModel{
 	@JsonProperty("name")
 	private String name;
@@ -14,33 +21,6 @@ public class PersonModel{
 
 	@JsonProperty("age")
 	private int age;
-
-	public String getName(){
-		return name;
-	}
-
-	public List<String> getPosition(){
-		return position;
-	}
-
-	public int getAge(){
-		return age;
-	}
-
-	public PersonModel setName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	public PersonModel setPosition(List<String> position) {
-		this.position = position;
-		return this;
-	}
-
-	public PersonModel setAge(int age) {
-		this.age = age;
-		return this;
-	}
 
 	@SneakyThrows
 	@Override

@@ -2,24 +2,18 @@ package http.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 
+@Setter
+@Accessors(fluent = true)
 public class NoteModel {
 	@JsonProperty("notes")
 	private String notes;
 
 	@JsonProperty("name")
 	private String name;
-
-	public NoteModel setNotes(String notes){
-		this.notes = notes;
-		return this;
-	}
-
-	public NoteModel setName(String name){
-		this.name = name;
-		return this;
-	}
 
 	@SneakyThrows
 	@Override

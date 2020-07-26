@@ -1,24 +1,27 @@
-package extension.webdriver.singleton;
+package extension.webdriver.injector;
 
-import extension.webdriver.resolver.Inject;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testcontainers.containers.BrowserWebDriverContainer;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.matchesText;
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
-@SetupSingletonContainer
-public class BaseSingletonTest {
+@InjectBrowserContainer
+public class BaseContainerTest {
 
-    @BeforeAll
-    static void setup(@Inject RemoteWebDriver driver) {
-        setWebDriver(driver);
+    @Inject
+    private BrowserWebDriverContainer browserContainer;
+
+    @BeforeEach
+    void setup() {
         baseUrl = "https://the-internet.herokuapp.com";
+        setWebDriver(this.browserContainer.getWebDriver());
     }
 
     @Test

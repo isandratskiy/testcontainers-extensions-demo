@@ -2,16 +2,18 @@ package webdriver.options;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.HashMap;
+import java.util.Map;
 
-import static java.util.Collections.*;
+import static java.util.List.of;
+import static java.util.Map.entry;
+import static java.util.Map.ofEntries;
 
 public class ChromeOptionsProvider {
     public static ChromeOptions getOptions() {
         var options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
-        options.setExperimentalOption("excludeSwitches", singletonList("enable-automation"));
+        options.setExperimentalOption("excludeSwitches", of("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
         options.setExperimentalOption("prefs", disablePasswordManager());
         options.setAcceptInsecureCerts(true);
@@ -19,10 +21,9 @@ public class ChromeOptionsProvider {
         return options;
     }
 
-    private static HashMap<String, Boolean> disablePasswordManager() {
-        var preference = new HashMap<String, Boolean>();
-        preference.put("credentials_enable_service", false);
-        preference.put("profile.password_manager_enabled", false);
-        return preference;
+    private static Map<String, Boolean> disablePasswordManager() {
+        return ofEntries(
+                entry("credentials_enable_service", false),
+                entry("profile.password_manager_enabled", false));
     }
 }

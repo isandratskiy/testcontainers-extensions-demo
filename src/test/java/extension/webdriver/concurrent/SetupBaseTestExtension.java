@@ -1,19 +1,22 @@
 package extension.webdriver.concurrent;
 
-import org.junit.jupiter.api.extension.*;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.DefaultRecordingFileFactory;
 import org.testcontainers.lifecycle.TestDescription;
 
 import java.io.File;
 
-import static com.codeborne.selenide.WebDriverRunner.*;
-import static webdriver.options.CapabilitiesFactory.getDriverCapabilities;
-import static java.lang.System.out;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
+import static http.Logger.logInfo;
 import static java.time.Duration.ofMinutes;
 import static org.apache.commons.io.FileUtils.ONE_MB;
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
-import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.*;
+import static org.testcontainers.containers.BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL;
+import static webdriver.options.CapabilitiesFactory.getDriverCapabilities;
 
 public class SetupBaseTestExtension implements BeforeEachCallback, AfterEachCallback{
     private static final String CONTAINER_KEY = "each.testcontainer";
@@ -29,9 +32,11 @@ public class SetupBaseTestExtension implements BeforeEachCallback, AfterEachCall
         container.withSharedMemorySize(1024L * ONE_MB);
         container.setPrivilegedMode(true);
         container.start();
+
         setWebDriver(container.getWebDriver());
+
         context.getStore(GLOBAL).put(CONTAINER_KEY, container);
-        out.println("Container ID : " + container.getContainerId());
+        logInfo("Container ID : " + container.getContainerId());
     }
 
     @Override
@@ -49,8 +54,9 @@ public class SetupBaseTestExtension implements BeforeEachCallback, AfterEachCall
                     public String getFilesystemFriendlyName() {
                         return context.getRequiredTestMethod().getName();
                     }
-                }, context.getExecutionException()
-        );
+                },
+                context.getExecutionException());
+
         container.stop();
         context.getStore(GLOBAL).remove(CONTAINER_KEY);
     }

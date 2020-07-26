@@ -1,17 +1,19 @@
 package http;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 
 public final class JavaObjectMapper {
     private JavaObjectMapper() {
     }
 
-    public static String serialize(Object object) throws JsonProcessingException {
+    @SneakyThrows
+    public static String serialize(Object object) {
         return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
-    public static <T> T responseAs(String response, Class<T> aClass) throws JsonProcessingException {
+    @SneakyThrows
+    public static <T> T responseAs(String response, Class<T> aClass) {
         return new ObjectMapper().readValue(response, aClass);
     }
 }

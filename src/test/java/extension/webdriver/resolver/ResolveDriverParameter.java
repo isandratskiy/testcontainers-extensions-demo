@@ -1,4 +1,4 @@
-package extension.webdriver.singleton;
+package extension.webdriver.resolver;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Testcontainers
-@ExtendWith({SetupSingletonContainerExtension.class})
-public @interface SetupSingletonContainer {
+@ExtendWith({ResolveDriverContainerExtension.class})
+public @interface ResolveDriverParameter {
 }
