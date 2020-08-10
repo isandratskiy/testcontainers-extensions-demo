@@ -11,5 +11,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Running tests
-        run: ./gradlew clean test
+      - name: Running chrome tests
+        run: ./gradlew clean testChrome
+      - name: Running firefox tests
+        run: ./gradlew clean testFirefox

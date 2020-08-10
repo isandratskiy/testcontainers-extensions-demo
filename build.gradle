@@ -69,3 +69,11 @@ tasks.withType(Test) {
         failOnPassedAfterRetry = false
     }
 }
+
+task testChrome(type: Test) {
+    systemProperties["browser.container"] = "chrome"
+}
+
+task testFirefox(type: Test) {
+    systemProperties["browser.container"] = "firefox"
+}
