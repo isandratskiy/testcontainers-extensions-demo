@@ -1,5 +1,6 @@
-package extension.webdriver.injector;
+package extension._01_webdriver.injector;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -13,7 +14,7 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
 @InjectBrowserContainer
-public class BaseContainerTest {
+public class InjectContainerTest {
 
     @Inject
     private BrowserWebDriverContainer browserContainer;
@@ -24,6 +25,7 @@ public class BaseContainerTest {
         setWebDriver(this.browserContainer.getWebDriver());
     }
 
+    @SneakyThrows
     @Test
     void canPassForgotPassword() {
         open("/forgot_password");
@@ -32,6 +34,7 @@ public class BaseContainerTest {
         $("#content").shouldHave(exactText("Your e-mail's been sent!"));
     }
 
+    @SneakyThrows
     @Test
     void canLoginWithCredentials() {
         open("/login");

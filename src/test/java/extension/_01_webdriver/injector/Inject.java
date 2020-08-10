@@ -1,4 +1,4 @@
-package extension.webdriver.injector;
+package extension._01_webdriver.injector;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

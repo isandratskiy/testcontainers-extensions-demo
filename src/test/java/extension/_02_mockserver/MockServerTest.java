@@ -1,4 +1,4 @@
-package extension.mockserver;
+package extension._02_mockserver;
 
 import http.MockProvider;
 import http.client.RestClient;
@@ -17,13 +17,13 @@ public class MockServerTest {
     @Test
     void shouldReturnPerson(RestClient client, MockProvider provider) {
         var path = "/person";
-        var mockResponse = serialize(
+        var mockPerson = serialize(
                 new PersonModel()
                         .name("Peter")
                         .age(38)
                         .position(of("Founder")));
 
-        var mockInstance = provider.createPersonExpectation(path, mockResponse) + "?name=peter";
+        var mockInstance = provider.createPersonExpectation(path, mockPerson) + "?name=peter";
         var person = responseAs(client.get(mockInstance).body(), PersonModel.class);
         assertEquals(
                 "Peter", person.name(), "Expectation returns expected response body");
@@ -32,13 +32,13 @@ public class MockServerTest {
     @Test
     void shouldValidatePersonNote(RestClient client, MockProvider provider) {
         var path = "/validate";
-        var mockRequest = serialize(
+        var mockNote = serialize(
                 new NoteModel()
                         .name("Joe")
                         .notes("valid"));
 
-        var mockInstance = provider.createPersonNoteExpectation(path, mockRequest);
-        var response = client.post(mockInstance, mockRequest);
+        var mockInstance = provider.createPersonNoteExpectation(path, mockNote);
+        var response = client.post(mockInstance, mockNote);
         assertEquals(
                 200, response.statusCode(), "Expectation returns expected response body");
     }

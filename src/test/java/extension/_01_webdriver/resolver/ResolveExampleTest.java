@@ -1,6 +1,6 @@
-package extension.webdriver.resolver;
+package extension._01_webdriver.resolver;
 
-import extension.webdriver.injector.Inject;
+import extension._01_webdriver.injector.Inject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -13,13 +13,13 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
-@ResolveDriverParameter
-public class BaseSingletonTest {
+@ResolveDriverArgument
+public class ResolveExampleTest {
 
     @BeforeAll
     static void setup(@Inject RemoteWebDriver driver) {
-        setWebDriver(driver);
         baseUrl = "https://the-internet.herokuapp.com";
+        setWebDriver(driver);
     }
 
     @Test

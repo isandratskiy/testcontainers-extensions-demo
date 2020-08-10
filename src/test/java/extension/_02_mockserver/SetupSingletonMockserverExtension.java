@@ -1,4 +1,4 @@
-package extension.mockserver;
+package extension._02_mockserver;
 
 import http.MockProvider;
 import lombok.SneakyThrows;

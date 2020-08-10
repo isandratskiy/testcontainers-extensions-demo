@@ -1,22 +1,15 @@
-package extension.webdriver.concurrent;
+package extension._01_webdriver.callback;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.AuthenticationType.BASIC;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static org.openqa.selenium.By.tagName;
 import static org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 
-@SetupConcurrentContainers
-public class BaseConcurrentTest {
-
-    @BeforeAll
-    static void setup() {
-        baseUrl = "https://the-internet.herokuapp.com";
-    }
+@SetupBrowserContainers
+public class ExampleTest {
 
     @Test
     void canEditIFrameText() {

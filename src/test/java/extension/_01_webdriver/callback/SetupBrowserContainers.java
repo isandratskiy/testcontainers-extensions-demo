@@ -1,4 +1,4 @@
-package extension.mockserver;
+package extension._01_webdriver.callback;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.parallel.Execution;
@@ -15,6 +15,6 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT;
 @Retention(RetentionPolicy.RUNTIME)
 @Testcontainers
 @Execution(CONCURRENT)
-@ExtendWith({SetupSingletonMockserverExtension.class, RestClientResolver.class})
-public @interface SetupMockserver {
+@ExtendWith(SetupBaseTestExtension.class)
+public @interface SetupBrowserContainers {
 }

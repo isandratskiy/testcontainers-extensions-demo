@@ -1,6 +1,6 @@
-package extension.webdriver.resolver;
+package extension._01_webdriver.resolver;
 
-import extension.webdriver.injector.Inject;
+import extension._01_webdriver.injector.Inject;
 import org.junit.jupiter.api.extension.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
@@ -21,7 +21,7 @@ import static webdriver.options.CapabilitiesFactory.getDriverCapabilities;
 
 public class ResolveDriverContainerExtension implements BeforeAllCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
     private static final Namespace NAMESPACE = create(RESOLVER_CONTAINER);
-    private static final String CONTAINER_KEY = "resolve.testcontainer";
+    private String CONTAINER_KEY;
 
     @Override
     public void beforeAll(ExtensionContext context) {
@@ -32,8 +32,10 @@ public class ResolveDriverContainerExtension implements BeforeAllCallback, After
         container.withStartupAttempts(3);
         container.withStartupTimeout(ofMinutes(5));
         container.withSharedMemorySize(1024L * ONE_MB);
-        container.setPrivilegedMode(true);
+        container.withPrivilegedMode(true);
         container.start();
+
+        this.CONTAINER_KEY = container.getContainerId();
 
         context.getStore(NAMESPACE).put(CONTAINER_KEY, container);
         logInfo("Container ID : " + container.getContainerId());
