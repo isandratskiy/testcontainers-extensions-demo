@@ -19,7 +19,7 @@ public class MockServerContainer extends GenericContainer<MockServerContainer> {
         super.withExposedPorts(PORT);
     }
 
-    public String getHost() {
+    public String getInstance() {
         return format("http://%s:%d", super.getContainerIpAddress(), this.getPort());
     }
 

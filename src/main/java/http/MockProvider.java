@@ -26,7 +26,7 @@ public class MockProvider {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody(mockResponse));
 
-        return mockServer.getHost() + path;
+        return mockServer.getInstance() + path;
     }
 
     public void createExpectationOverMockServerClient() {
@@ -60,6 +60,6 @@ public class MockProvider {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody("{ \"note\": \"valid\" }"));
 
-        return mockServer.getHost() + path;
+        return mockServer.getInstance() + path;
     }
 }
