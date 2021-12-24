@@ -8,8 +8,6 @@ plugins {
 group "test.conteiners.demo"
 version "0.0.8"
 
-sourceCompatibility = 11
-
 repositories {
     mavenCentral()
 }
