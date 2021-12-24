@@ -11,13 +11,12 @@ version "0.0.8"
 sourceCompatibility = 11
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
 ext {
     JUNIT_VERSION = "5.6.2"
-    TESTCONTAINERS_VERSION = "1.15.0-rc1"
+    TESTCONTAINERS_VERSION = "1.16.2"
     SELENIDE_VERSION = "5.12.0"
     MOCKSERVER_VERSION = "5.10.0"
     JACKSON_VERSION = "2.10.3"

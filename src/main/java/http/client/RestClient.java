@@ -1,5 +1,6 @@
 package http.client;
 
+import http.JavaObjectMapper;
 import lombok.SneakyThrows;
 
 import java.net.http.HttpClient;
@@ -19,7 +20,7 @@ public class RestClient {
             .build();
 
     @SneakyThrows
-    public HttpResponse<String> post(String uri, String body) {
+    public ReceivedResponse post(String uri, String body) {
         var request = HttpRequest.newBuilder()
                 .POST(ofString(body))
                 .uri(create(uri))
@@ -29,11 +30,11 @@ public class RestClient {
         var response = httpClient.send(request, ofString());
         logInfo("\nREQUEST: \n" + request + "\n" + "BODY: \n" + body);
         logInfo("\nRESPONSE: \n" + response.body());
-        return response;
+        return new ReceivedResponse(response);
     }
 
     @SneakyThrows
-    public HttpResponse<String> get(String uri) {
+    public ReceivedResponse get(String uri) {
         var request = HttpRequest.newBuilder()
                 .GET()
                 .uri(create(uri))
@@ -43,6 +44,22 @@ public class RestClient {
         var response = httpClient.send(request, ofString());
         logInfo("\nREQUEST: \n" + response.request());
         logInfo("\nRESPONSE: \n" + response.body());
-        return response;
+        return new ReceivedResponse(response);
+    }
+
+    public class ReceivedResponse {
+        private final HttpResponse<String> response;
+
+        private ReceivedResponse(HttpResponse<String> response) {
+            this.response = response;
+        }
+
+        public <T> T responseAs(Class<T> aClass) {
+            return JavaObjectMapper.decode(this.response.body(), aClass);
+        }
+
+        public int statusCode() {
+            return this.response.statusCode();
+        }
     }
 }

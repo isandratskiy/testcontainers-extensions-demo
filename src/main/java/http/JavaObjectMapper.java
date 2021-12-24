@@ -8,12 +8,12 @@ public final class JavaObjectMapper {
     }
 
     @SneakyThrows
-    public static String serialize(Object object) {
+    public static String encode(Object object) {
         return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
     @SneakyThrows
-    public static <T> T responseAs(String response, Class<T> aClass) {
+    public static <T> T decode(String response, Class<T> aClass) {
         return new ObjectMapper().readValue(response, aClass);
     }
 }

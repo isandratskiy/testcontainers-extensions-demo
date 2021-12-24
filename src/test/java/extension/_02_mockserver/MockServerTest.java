@@ -6,8 +6,7 @@ import http.model.request.NoteModel;
 import http.model.response.PersonModel;
 import org.junit.jupiter.api.Test;
 
-import static http.JavaObjectMapper.responseAs;
-import static http.JavaObjectMapper.serialize;
+import static http.JavaObjectMapper.encode;
 import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,14 +16,14 @@ public class MockServerTest {
     @Test
     void shouldReturnPerson(RestClient client, MockProvider provider) {
         var path = "/person";
-        var mockPerson = serialize(
+        var mockPerson = encode(
                 new PersonModel()
                         .name("Peter")
                         .age(38)
                         .position(of("Founder")));
 
         var mockInstance = provider.createPersonExpectation(path, mockPerson) + "?name=peter";
-        var person = responseAs(client.get(mockInstance).body(), PersonModel.class);
+        var person = client.get(mockInstance).responseAs(PersonModel.class);
         assertEquals(
                 "Peter", person.name(), "Expectation returns expected response body");
     }
@@ -32,7 +31,7 @@ public class MockServerTest {
     @Test
     void shouldValidatePersonNote(RestClient client, MockProvider provider) {
         var path = "/validate";
-        var mockNote = serialize(
+        var mockNote = encode(
                 new NoteModel()
                         .name("Joe")
                         .notes("valid"));
